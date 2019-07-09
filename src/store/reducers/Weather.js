@@ -22,7 +22,7 @@ const weatherDataRecevied = (state, action) => {
     temperatureinFahrenheit: toF(temperatureinCelsius),
     description,
     locationName
-  };
+  };  
 };
 
 const handlers = {

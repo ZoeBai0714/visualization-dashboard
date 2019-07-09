@@ -18,22 +18,23 @@ query($latLong: WeatherQuery!) {
     temperatureinCelsius
   }
 }
-`;
+`; 
 
 const getWeather = state => {
   const { temperatureinFahrenheit, description, locationName } = state.weather;
+  //console.log(state)
   return {
     temperatureinFahrenheit,
     description,
     locationName
   };
 };
-
 export default () => {
+  //passing the data url into provider
   return (
-    <Provider value={client}>
+    <Provider value={client}> 
       <Weather />
-    </Provider>
+    </Provider> 
   );
 };
 
@@ -68,7 +69,7 @@ const Weather = () => {
     },
     [dispatch, data, error]
   );
-
+ 
   if (fetching) return <LinearProgress />;
 
   return (
@@ -76,4 +77,4 @@ const Weather = () => {
       label={`Weather in ${locationName}: ${description} and ${temperatureinFahrenheit}°`}
     />
   );
-};
+}; 

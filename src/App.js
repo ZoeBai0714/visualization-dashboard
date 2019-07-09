@@ -8,8 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import NowWhat from "./components/NowWhat";
+import MetricContainer from './components/MetricContainer'
 
 const store = createStore();
+
+
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true
@@ -31,11 +34,12 @@ const App = props => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
-      <Wrapper>
-        <Header />
-        <NowWhat />
+      {/* <Wrapper> */}
+        <Header /> 
+        {/* <NowWhat /> */}
+        <MetricContainer/>
         <ToastContainer />
-      </Wrapper>
+      {/* </Wrapper> */}
     </Provider>
   </MuiThemeProvider>
 );
