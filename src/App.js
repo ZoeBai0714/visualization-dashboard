@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import NowWhat from "./components/NowWhat";
 import MetricContainer from './components/MetricContainer'
+import Graph from './components/Graph'
 
 const store = createStore();
 
@@ -39,6 +40,7 @@ const App = props => (
         {/* <NowWhat /> */}
         <MetricContainer/>
         <ToastContainer />
+        <Graph/>
       {/* </Wrapper> */}
     </Provider>
   </MuiThemeProvider>

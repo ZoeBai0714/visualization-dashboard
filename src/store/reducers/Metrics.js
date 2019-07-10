@@ -3,7 +3,7 @@ const initialState = {
   metrics:[]
 };
 
-const metricsDataRecevied = (state, action) => {
+const metricsDataReceived = (state, action) => {
   const { getMetrics } = action;
   const {metrics} = getMetrics;
 
@@ -11,9 +11,10 @@ const metricsDataRecevied = (state, action) => {
     metrics
   };
 };
-  
+
+
 const handlers = {
-  [actions.METRICS_DATA_RECEIVED]: metricsDataRecevied
+  [actions.METRICS_DATA_RECEIVED]: metricsDataReceived,
 };
 export default (state = initialState, action) => {
   const handler = handlers[action.type];

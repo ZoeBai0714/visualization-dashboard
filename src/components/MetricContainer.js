@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Provider, createClient, useQuery } from "urql";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions";
-import { map } from "wonka";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 const client = createClient({
@@ -37,6 +36,7 @@ const Metrics = () =>{
     })
 
     const {fetching, data, error} = result;
+    console.log(result)
     useEffect(()=>{
         if(error){
             dispatch({type:actions.API_ERROR, error: error.message});
