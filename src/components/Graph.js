@@ -41,15 +41,15 @@ const Graph = () =>{
     const after = Date.now() - 1000 * 60 * 30
     const measurementQuery = {
         metricName: metric,
-        after: after
-    }
+        after: after 
+    } 
     const [result] = useQuery({
         query,
         variables: {
           metric: measurementQuery
         }
     })
-
+   
     const {fetching, data, error} = result;
     useEffect(()=>{
         if(error){
