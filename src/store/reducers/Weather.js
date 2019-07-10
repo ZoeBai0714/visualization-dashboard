@@ -16,8 +16,7 @@ const weatherDataRecevied = (state, action) => {
     locationName,
     temperatureinCelsius
   } = getWeatherForLocation;
-
-  return {
+  return { 
     temperatureinCelsius,
     temperatureinFahrenheit: toF(temperatureinCelsius),
     description,

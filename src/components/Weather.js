@@ -17,12 +17,11 @@ query($latLong: WeatherQuery!) {
     locationName
     temperatureinCelsius
   }
-}
+} 
 `; 
 
 const getWeather = state => {
   const { temperatureinFahrenheit, description, locationName } = state.weather;
-  //console.log(state)
   return {
     temperatureinFahrenheit,
     description,

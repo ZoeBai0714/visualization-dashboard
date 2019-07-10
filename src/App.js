@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import NowWhat from "./components/NowWhat";
 import MetricContainer from './components/MetricContainer'
-import Graph from './components/Graph'
+import TubingPressure from './components/TubingPressure'
 
 const store = createStore();
 
@@ -40,7 +40,7 @@ const App = props => (
         {/* <NowWhat /> */}
         <MetricContainer/>
         <ToastContainer />
-        <Graph/>
+        <TubingPressure/>
       {/* </Wrapper> */}
     </Provider>
   </MuiThemeProvider>

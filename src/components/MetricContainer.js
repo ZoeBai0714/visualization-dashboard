@@ -12,14 +12,8 @@ const query = `{
     getMetrics
 }`
 
-               
-// similar to mapStateToProps
-const getMetrics = state =>{
-    const {metrics} = state.metrics
-    return {metrics}
-}               
 
-
+// container should have a metrics filter to choose which graph to show
 export default()=>{
   return(
       <Provider value = {client}>
@@ -29,14 +23,26 @@ export default()=>{
 }
  
 const Metrics = () =>{
-    const dispatch = useDispatch();
-    const {metrics} = useSelector(getMetrics) //get metrics from mapStateToProps
+     const dispatch = useDispatch();
+     // get access to chosenMetrics in the state
+     const getChosenMetrics = state =>{
+         const chosenMetrics = state.metrics.chosenMetrics
+         return{chosenMetrics}
+     }
+     const {chosenMetrics} = useSelector(getChosenMetrics)
+     //dispatch metrics to state for graph
+     const handleChange = (e) =>{
+        const chosenMetric = e.target.value
+        dispatch({type:actions.METRICS_FILTER_RECEIVED, chosenMetric})
+     }
+
+
+    // fetch all the metrics
     const [result] = useQuery({
         query
     })
 
     const {fetching, data, error} = result;
-    console.log(result)
     useEffect(()=>{
         if(error){
             dispatch({type:actions.API_ERROR, error: error.message});
@@ -49,12 +55,14 @@ const Metrics = () =>{
 
        [dispatch, data, error]
    );
-    
    if(fetching) return <LinearProgress/>
-   console.log(data.getMetrics)
+
+
+
    return(<div>
-           <select>
-           {data.getMetrics.map(metric => <option>{metric}</option>)}
+           <select onChange = {handleChange}>
+            <option value = "">Select Metrics</option>   
+            {data.getMetrics.map((metric, index) =>  <option key = {index} value = {metric}>{metric}</option>)}
            </select>
           </div>) 
 }
