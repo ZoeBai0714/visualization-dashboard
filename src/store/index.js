@@ -4,10 +4,12 @@ import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
 import metricsReducer from "./reducers/Metrics";
+import tubingReducer from "./reducers/TubingPressure";
 export default () => {
   const rootReducer = combineReducers({
     weather: weatherReducer,
-    metrics: metricsReducer
+    metrics: metricsReducer,
+    tube: tubingReducer
   });
 
   const composeEnhancers = composeWithDevTools({});

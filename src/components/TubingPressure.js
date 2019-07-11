@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Provider, createClient, useQuery } from "urql";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions";
 // import LinearProgress from "@material-ui/core/LinearProgress";
+
 
 const client = createClient({
     url: "https://react.eogresources.com/graphql"
@@ -18,7 +19,7 @@ const query = `
         }
       }`
 
- 
+  
 
 export default()=>{
   return(
@@ -27,39 +28,40 @@ export default()=>{
       </Provider>
   )
 }
- 
+const after = Date.now() - 1000 * 60 * 30
+
 const Graph = () =>{
     const dispatch = useDispatch();
-    // const {metrics} = useSelector(getMetrics) //get metrics from mapStateToProps
-    const metric = "tubingPressure"
-    const after = Date.now() - 1000 * 60 * 30
-    const measurementQuery = {
+    const metric = "tubingPressure" 
+    const tubingData = {
         metricName: metric,
         after: after 
     } 
     const [result] = useQuery({
         query,
         variables: {
-          metric: measurementQuery
+          metric: tubingData
         }
-    })
+    }) 
    
     const { /*fetching,*/ data, error} = result;
+    //similar to componentDidMount
     useEffect(()=>{
         if(error){
             dispatch({type:actions.API_ERROR, error: error.message});
             return;
         }
         if(!data) return;
-        const {getMeasurements} = data
-        dispatch({type: actions.TUBING_DATA_RECEIVED, getMeasurements});
+        const getTubingData = data
+        dispatch({type: actions.TUBING_DATA_RECEIVED, getTubingData});
        },
-
        [dispatch, data, error]
-   );
+   ); 
   //  if(fetching) return <LinearProgress/>
+  // console.log(data)
+
    return(<div>
-            wasup
+           
           </div>) 
 }
 

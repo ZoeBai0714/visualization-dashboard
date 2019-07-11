@@ -36,13 +36,14 @@ const Metrics = () =>{
         dispatch({type:actions.METRICS_FILTER_RECEIVED, chosenMetric})
      }
 
-
+ 
     // fetch all the metrics
     const [result] = useQuery({
         query
     })
-
     const {fetching, data, error} = result;
+    console.log(data)
+
     useEffect(()=>{
         if(error){
             dispatch({type:actions.API_ERROR, error: error.message});
@@ -53,12 +54,9 @@ const Metrics = () =>{
         dispatch({type: actions.METRICS_DATA_RECEIVED, getMetrics});
        },
 
-       [dispatch, data, error]
+       [ data ]
    );
    if(fetching) return <LinearProgress/>
-
-
-
    return(<div>
            <select onChange = {handleChange}>
             <option value = "">Select Metrics</option>   
