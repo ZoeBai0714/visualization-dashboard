@@ -6,11 +6,10 @@ const initialState = {
 };
 
 const tubingDataReceived = (state, action) => {
-   const timestamps = [],values = []
-   // for graph we need an array of arrays,concat returns this
+   const values = []
    state.timestamps = action.getTubingData.getMeasurements.map(data=> data.at)
-   action.getTubingData.getMeasurements.map(data=> values.push(data.value))
-   return{...state, values:values}
+   state.values = action.getTubingData.getMeasurements.map(data=>(data.value))
+   return{...state}
 };
 
 

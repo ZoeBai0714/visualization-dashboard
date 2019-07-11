@@ -6,17 +6,12 @@ const initialState = {
 
 // get all the metrics for dropdown menu
 const metricsDataReceived = (state, action) => {
-  const { getMetrics } = action;
-  const {metrics} = getMetrics;
-  return {
-    metrics
-  };
+  return{...state, metrics:action.getMetrics}
 };
 
 // filter chosen metrics for graph
 const chosenMetrics = (state, action)=>{
-  state.chosenMetrics = state.chosenMetrics.concat(action.chosenMetric)
-  return{...state, chosenMetrics:state.chosenMetrics}
+  return{...state, chosenMetrics:action.chosenMetrics}
 }
 
 

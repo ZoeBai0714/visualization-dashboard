@@ -70,7 +70,6 @@ const Weather = () => {
   );
  
   if (fetching) return <LinearProgress />;
-  console.log("rendering weather")
 
   return (
     <Chip

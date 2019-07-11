@@ -9,8 +9,9 @@ import Header from "./components/Header";
 // import Wrapper from "./components/Wrapper";
 // import NowWhat from "./components/NowWhat";
 import MetricContainer from './components/MetricContainer'
-import TubingPressure from './components/TubingPressure'
 import Graphs from './components/Graphs'
+import Quries from './store/api/index';
+
 const store = createStore();
 
 
@@ -40,8 +41,8 @@ const App = props => (
         {/* <NowWhat /> */}
         <MetricContainer/>
         <Graphs/>
+        <Quries/>
         <ToastContainer />
-        <TubingPressure/>
       {/* </Wrapper> */}
     </Provider>
   </MuiThemeProvider>

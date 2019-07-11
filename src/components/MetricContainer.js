@@ -1,67 +1,30 @@
 import React, { useEffect } from "react";
-import { Provider, createClient, useQuery } from "urql";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import Multiselect from 'multiselect-dropdown-react';
 
-const client = createClient({
-    url: "https://react.eogresources.com/graphql"
-  });
-
-const query = `{
-    getMetrics
-}`
-
-
-// container should have a metrics filter to choose which graph to show
-export default()=>{
-  return(
-      <Provider value = {client}>
-        <Metrics/>
-      </Provider>
-  )
+//access state
+const getMetrics = state => {
+    console.log(state.metrics)
+    return state.metrics.metrics
 }
- 
-const Metrics = () =>{
-     const dispatch = useDispatch();
-     // get access to chosenMetrics in the state
-     const getChosenMetrics = state =>{
-         const chosenMetrics = state.metrics.chosenMetrics
-         return{chosenMetrics}
-     }
-     const {chosenMetrics} = useSelector(getChosenMetrics)
-     //dispatch metrics to state for graph
-     const handleChange = (e) =>{
-        const chosenMetric = e.target.value
-        dispatch({type:actions.METRICS_FILTER_RECEIVED, chosenMetric})
-     }
 
- 
-    // fetch all the metrics
-    const [result] = useQuery({
-        query
-    })
-    const {fetching, data, error} = result;
-    console.log(data)
-
-    useEffect(()=>{
-        if(error){
-            dispatch({type:actions.API_ERROR, error: error.message});
-            return;
-        }
-        if(!data) return;
-        const {getMetrics} = data
-        dispatch({type: actions.METRICS_DATA_RECEIVED, getMetrics});
-       },
-
-       [ data ]
-   );
-   if(fetching) return <LinearProgress/>
-   return(<div>
-           <select onChange = {handleChange}>
-            <option value = "">Select Metrics</option>   
-            {data.getMetrics.map((metric, index) =>  <option key = {index} value = {metric}>{metric}</option>)}
-           </select>
-          </div>) 
+const MetricContainer = () =>{
+    //display all metrics options
+    const metrics = useSelector(getMetrics)
+    const metricsData = []
+    metrics.map(metric => metricsData.push({name:`${metric}`, value:`${metric}`}))
+    //filter metrics
+    const dispatch = useDispatch();
+    const selectMetrics = (options) =>{
+      const chosenMetrics = options  
+      dispatch({type:actions.METRICS_FILTER_RECEIVED, chosenMetrics})
+    }
+    return(
+      <Multiselect options={metricsData} onSelectOptions={selectMetrics} />
+    )
 }
+
+export default MetricContainer
+
 
