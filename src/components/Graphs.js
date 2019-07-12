@@ -45,17 +45,25 @@ const Graphs = ({data}) =>{
     // }
 
     // const allData = new TimeSeries(dataObjects[0]);
-    
+    // const chartColors = () =>{
+    //     const letters = '0123456789ABCDEF';
+    //     let color = '#';
+    //     for (var i = 0; i < 6; i++) {
+    //         color += letters[Math.floor(Math.random() * 16)]; // so the index of letter will be always smaller than 16
+    //     }
+    //     return color;
+    // }
+    // const chartStyle = styler([{key:'value', color: chartColors()}])
+    const chartColors = {1:'orange', 2:'#e320bf', 3:"blue", 4:"green", 5:"purple", 6:"black"}
     if(dataObjects.length === 0) return null
     return(
         <div>
             <ChartContainer timeRange={dataObjects[0].timerange()} width={1200} minTime={0} maxTime={10000} paddingRight={100}>
                 <ChartRow height="600">
-                    {dataObjects.map((metric, index)=>  <YAxis id={index+1} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="60" type="linear" format=""/>)}
-                    {/* <YAxis id="1" label="Unit PSI" min={0} max={2000} width="60" type="linear" format="$,.2f"/> */}
+                    {dataObjects.map((metric, index)=>  <YAxis id={index+1} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>)}
                      <Charts>
                         {dataObjects.map((metric, index) => 
-                             <LineChart axis= {index+1} series={metric} columns={["time", "value"]}/> )}
+                             <LineChart style = {styler([{key:'value', color:chartColors[index+1]}])} axis= {index+1} series={metric} columns={["time", "value"]}/> )}
                          <cycling/>    
                     </Charts>
                 </ChartRow>
