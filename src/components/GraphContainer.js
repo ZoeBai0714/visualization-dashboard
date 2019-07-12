@@ -22,7 +22,6 @@ query($measurementQueries: [MeasurementQuery]) {
 
 const GraphContainer = () =>{ 
     const chosenMetrics = useSelector(getChosenMetrics);
-    // chosenMetrics = ['casingPressure', 'tubingPressure']
     const [results] = useQuery({
         query,
         variables: {
