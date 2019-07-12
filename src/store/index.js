@@ -5,11 +5,13 @@ import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
 import metricsReducer from "./reducers/Metrics";
 import tubingReducer from "./reducers/TubingPressure";
+import casingReducer from "./reducers/CasingPressure";
 export default () => {
   const rootReducer = combineReducers({
     weather: weatherReducer,
     metrics: metricsReducer,
-    tube: tubingReducer
+    tube: tubingReducer,
+    casing: casingReducer
   });
 
   const composeEnhancers = composeWithDevTools({});

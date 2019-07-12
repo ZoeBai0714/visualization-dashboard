@@ -5,7 +5,6 @@ import Multiselect from 'multiselect-dropdown-react';
 
 //access state
 const getMetrics = state => {
-    console.log(state.metrics)
     return state.metrics.metrics
 }
 

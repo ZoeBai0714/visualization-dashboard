@@ -11,7 +11,7 @@ const metricsDataReceived = (state, action) => {
 
 // filter chosen metrics for graph
 const chosenMetrics = (state, action)=>{
-  return{...state, chosenMetrics:action.chosenMetrics}
+  return{...state, chosenMetrics: [...action.chosenMetrics]}
 }
 
 

@@ -6,9 +6,8 @@ const initialState = {
 };
 
 const tubingDataReceived = (state, action) => {
-   const values = []
    state.timestamps = action.getTubingData.getMeasurements.map(data=> data.at)
-   state.values = action.getTubingData.getMeasurements.map(data=>(data.value))
+   state.values = action.getTubingData.getMeasurements.map(data=> data.value)
    return{...state}
 };
 
