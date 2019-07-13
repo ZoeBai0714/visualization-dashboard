@@ -22,6 +22,7 @@ query($measurementQueries: [MeasurementQuery]) {
 
 const GraphContainer = () =>{ 
     const chosenMetrics = useSelector(getChosenMetrics);
+    
     const [results] = useQuery({
         query,
         variables: {

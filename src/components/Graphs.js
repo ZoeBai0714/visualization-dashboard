@@ -15,31 +15,33 @@ const getTrackerValues = state =>{
     console.log(state.tracker.values)
     return state.tracker.values
 }
+
 const Graphs = ({data}) =>{
-   
     // tracker
+    let something = useSelector(getTrackerValues)
+    const trackerInfoValues = something
+    console.log(trackerInfoValues)
     const dispatch = useDispatch();
     const tracker = useSelector(getTrackerPosition);
     const metrics = [...data.map(metric => metric.metric)];
     const result = [];
-    const something = useSelector(getTrackerValues)
-    console.log(something)
-    const trackerInfoValues =something
-    console.log(trackerInfoValues)
+    
     const handleTrackerChanged = (time) =>{
        if(time){
            const values = []
            //const e = dataObjects[0].atTime(time)
+           console.log(dataObjects)
            const test = dataObjects.map(metric => metric.atTime(time)._d._root.entries[1][1]._root.entries[0][1])
+           console.log(test)
            
            //console.log(dataObjects.map((metric, index) => console.log(metric._collection._eventList._root, index)))
            //const value = e._d._root.entries[1][1]._root.entries[0][1]
            const keyValues = {}
            metrics.map((metric, index) => {
-               if(!keyValues[`${metric}`]){
-                keyValues[`${metric}`] = test[index]
+               if(!keyValues[metric]){
+                keyValues[metric] = test[index]
                }else{
-                keyValues[`${metric}`] = test[index]
+                keyValues[metric] = test[index]
                }
            })
            for(let key in keyValues){
@@ -48,7 +50,6 @@ const Graphs = ({data}) =>{
                obj["value"] = keyValues[`${key}`]
              values.push(obj)
            }
-           console.log(values)
             // metrics.map((metric, index) =>{ 
             //     const obj = { label:"", value:""}                                                       
             //     obj["label"] = metric
@@ -56,10 +57,15 @@ const Graphs = ({data}) =>{
             //     result.push(obj)
             //     result.map(infoObj => trackerInfoValues.push(infoObj))
             // })
-            dispatch({type:actions.TRACKER_VALUES_RECEIVED, values})
-            dispatch({type: actions.TRACKER_POSITION_RECEIVED, time})
+            // dispatch({type: actions.TRACKER_POSITION_RECEIVED, time})
+            // const reduxArgsQuestionMark = {values, time}
+            dispatch({
+                type:actions.TRACKER_VALUES_RECEIVED,
+                values: values,
+                time: time
+            })
+            
        }
-       
     }
      
     //  console.log(trackerInfoValues)
@@ -67,7 +73,6 @@ const Graphs = ({data}) =>{
     //     {label: "Speed", value: 222},
     //     {label: "HR", value: 333}
     // ];
-    
     
     const dataObjects = data.map(metric => {
         return new TimeSeries({
@@ -82,7 +87,7 @@ const Graphs = ({data}) =>{
     if(dataObjects.length === 0) return null
     return(
         <div>
-            <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1200} minTime={0} maxTime={10000} paddingRight={100}>
+            <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} minTime={0} maxTime={10000} paddingRight={100}>
                 <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={50} height="600">
                     {dataObjects.map((metric, index)=>  <YAxis id={index+1} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>)}
                      <Charts>
