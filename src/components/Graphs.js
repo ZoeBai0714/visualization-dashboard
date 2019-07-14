@@ -8,11 +8,11 @@ import * as actions from "../store/actions";
 
 //access to the tracker position in state
 const getTrackerPosition = state =>{
+    // console.log(state)
     return state.tracker.time
 }
 
 const getTrackerValues = state =>{
-    console.log(state.tracker.values)
     return state.tracker.values
 }
 
@@ -20,7 +20,6 @@ const Graphs = ({data}) =>{
     // tracker
     let something = useSelector(getTrackerValues)
     const trackerInfoValues = something
-    console.log(trackerInfoValues)
     const dispatch = useDispatch();
     const tracker = useSelector(getTrackerPosition);
     const metrics = [...data.map(metric => metric.metric)];
@@ -29,13 +28,8 @@ const Graphs = ({data}) =>{
     const handleTrackerChanged = (time) =>{
        if(time){
            const values = []
-           //const e = dataObjects[0].atTime(time)
-           console.log(dataObjects)
            const test = dataObjects.map(metric => metric.atTime(time)._d._root.entries[1][1]._root.entries[0][1])
-           console.log(test)
-           
-           //console.log(dataObjects.map((metric, index) => console.log(metric._collection._eventList._root, index)))
-           //const value = e._d._root.entries[1][1]._root.entries[0][1]
+        
            const keyValues = {}
            metrics.map((metric, index) => {
                if(!keyValues[metric]){
@@ -50,15 +44,8 @@ const Graphs = ({data}) =>{
                obj["value"] = keyValues[`${key}`]
              values.push(obj)
            }
-            // metrics.map((metric, index) =>{ 
-            //     const obj = { label:"", value:""}                                                       
-            //     obj["label"] = metric
-            //     obj["value"] = test[index]
-            //     result.push(obj)
-            //     result.map(infoObj => trackerInfoValues.push(infoObj))
-            // })
+          
             // dispatch({type: actions.TRACKER_POSITION_RECEIVED, time})
-            // const reduxArgsQuestionMark = {values, time}
             dispatch({
                 type:actions.TRACKER_VALUES_RECEIVED,
                 values: values,
@@ -67,19 +54,14 @@ const Graphs = ({data}) =>{
             
        }
     }
-     
-    //  console.log(trackerInfoValues)
-    // const trackerInfoValues = [
-    //     {label: "Speed", value: 222},
-    //     {label: "HR", value: 333}
-    // ];
+   
     
     const dataObjects = data.map(metric => {
         return new TimeSeries({
                 name: metric.metric,
                 columns: ["time", "value"],
                 unit:metric.measurements[0].unit,
-                points: metric.measurements.map( entry => {;return[ entry.at, entry.value]}) // {at: 1562955971646, value: 1276.59, unit: "PSI", __typename: "Measurement"}
+                points: metric.measurements.map( entry => {;return[ entry.at, entry.value]}) 
             })
     })
     

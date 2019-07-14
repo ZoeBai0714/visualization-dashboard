@@ -1,11 +1,12 @@
 import React, { useEffect }from "react";
 import { useQuery, createClient, Provider } from "urql";
-import { useSelector } from 'react-redux'
-import Graphs from './Graphs'
+import { useSelector } from 'react-redux';
+import Graphs from './Graphs';
+
 //get access to state
 const getChosenMetrics = state =>{
     return state.metrics.chosenMetrics;
-}
+} 
 const after = Date.now() - 1000 * 60 * 30
 const query = `
 query($measurementQueries: [MeasurementQuery]) {
@@ -19,7 +20,6 @@ query($measurementQueries: [MeasurementQuery]) {
     }
 }`
 
-
 const GraphContainer = () =>{ 
     const chosenMetrics = useSelector(getChosenMetrics);
     
@@ -30,11 +30,15 @@ const GraphContainer = () =>{
         }
     })
     if (results.data === undefined) return null
-   
+    
     return(
-        <Graphs data={results.data.getMultipleMeasurements}/>
+        <div>
+           <Graphs data={results.data.getMultipleMeasurements}/>
+        </div>
     )
 }
+
+
 
 const client = createClient({
     url: "https://react.eogresources.com/graphql"
