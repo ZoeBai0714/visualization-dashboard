@@ -37,7 +37,7 @@ const httpLink = new HttpLink({
  httpLink , 
  );//Now, queries and mutations will go over HTTP as normal, but subscriptions will be done over the websocket transport.
   
- // subscription doesn't support 
+ // subscription doesn't support apollo boost
  const client = new ApolloClient({
  link: ApolloLink.from([
      onError(({ graphQLErrors, networkError }) => {

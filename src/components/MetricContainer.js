@@ -8,6 +8,7 @@ const getMetrics = state => {
     return state.metrics.metrics
 }
 
+
 const MetricContainer = () =>{
     //display all metrics options
     const metrics = useSelector(getMetrics)
@@ -19,6 +20,7 @@ const MetricContainer = () =>{
       const chosenMetrics = options  
       dispatch({type:actions.METRICS_FILTER_RECEIVED, chosenMetrics})
     }
+  
     return(
       <Multiselect options={metricsData} onSelectOptions={selectMetrics} />
     )

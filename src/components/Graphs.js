@@ -20,7 +20,7 @@ const Graphs = ({data}) =>{
     const dispatch = useDispatch();
     const tracker = useSelector(getTrackerPosition);
     const metrics = [...data.map(metric => metric.metric)];
-    const result = [];
+    // const result = [];
     
     const handleTrackerChanged = (time) =>{
        if(time){
@@ -70,19 +70,19 @@ const Graphs = ({data}) =>{
     return(
         <div>
             <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} minTime={0} maxTime={10000} paddingRight={100}>
-                <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={50} height="600">
+                <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={0} trackerInfoWidth = {0} height="550">
                     {dataObjects.map((metric, index)=> {
                         const unit = metric._data._root.entries[1][1] 
                         if(!YIndex[unit]){
                             YIndex[unit] = index + 1 ;
                             index += 1;
-                            return <YAxis id={YIndex[unit]} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
+                            return <YAxis id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
                         }}
                      )}
                      <Charts>
                         {dataObjects.map((metric, index) =>{
                               const unit = metric._data._root.entries[1][1] 
-                              return <LineChart style = {styler([{key:'value', color:chartColors[index+1]}])} axis= {YIndex[unit]} series={metric} columns={["time", "value"]}/>})}
+                              return <LineChart key = {index} style = {styler([{key:'value', color:chartColors[index+1]}])} axis= {`${YIndex[unit]}`} series={metric} columns={["time", "value"]}/>})}
                          <cycling/>    
                     </Charts>
                 </ChartRow>

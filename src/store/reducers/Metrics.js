@@ -19,11 +19,9 @@ export default (state = initialState, action) => {
   switch(action.type){
     case `${actions.METRICS_DATA_RECEIVED}`:
        return metricsDataReceived(initialState, action)
-    break;
 
     case `${actions.METRICS_FILTER_RECEIVED}`:
-        return chosenMetrics(initialState, action)
-    break;     
+        return chosenMetrics(initialState, action)     
   }
   return state
  

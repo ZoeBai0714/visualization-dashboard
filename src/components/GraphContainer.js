@@ -2,7 +2,7 @@ import React, { useEffect }from "react";
 import { useQuery, createClient, Provider } from "urql";
 import { useSelector } from 'react-redux';
 import Graphs from './Graphs';
-
+import Metrics from './Metrics';
 //get access to state
 const getChosenMetrics = state =>{
     return state.metrics.chosenMetrics;
@@ -34,6 +34,7 @@ const GraphContainer = () =>{
     return(
         <div>
            <Graphs data={results.data.getMultipleMeasurements}/>
+            {chosenMetrics.length > 0? <Metrics chosenMetrics = {chosenMetrics}/> : null}
         </div>
     )
 }
