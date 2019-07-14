@@ -16,7 +16,7 @@ const LiveData =({liveData}) =>{
             liveMetrics[metric] = liveData.newMeasurement.value
         } 
     }})
-    console.log(liveMetrics)
+    // console.log(liveMetrics)
     return(
         <div>
             {Object.keys(liveMetrics).map(key=>

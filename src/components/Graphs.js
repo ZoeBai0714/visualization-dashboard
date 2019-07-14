@@ -8,7 +8,6 @@ import * as actions from "../store/actions";
 
 //access to the tracker position in state
 const getTrackerPosition = state =>{
-    // console.log(state)
     return state.tracker.time
 }
 
@@ -17,9 +16,7 @@ const getTrackerValues = state =>{
 }
 
 const Graphs = ({data}) =>{
-    // tracker
-    let something = useSelector(getTrackerValues)
-    const trackerInfoValues = something
+    const trackerInfoValues = useSelector(getTrackerValues)
     const dispatch = useDispatch();
     const tracker = useSelector(getTrackerPosition);
     const metrics = [...data.map(metric => metric.metric)];
@@ -45,7 +42,8 @@ const Graphs = ({data}) =>{
              values.push(obj)
            }
           
-            // dispatch({type: actions.TRACKER_POSITION_RECEIVED, time})
+            // must dispatch time and value at the same time, because they happend at the same time
+            // dispatch separately will cause one of them get overwritten
             dispatch({
                 type:actions.TRACKER_VALUES_RECEIVED,
                 values: values,
@@ -66,15 +64,25 @@ const Graphs = ({data}) =>{
     })
     
     const chartColors = {1:'orange', 2:'#e320bf', 3:"blue", 4:"green", 5:"purple", 6:"black"}
+    const YIndex = {} // Same unit shares the same YAxis, assign each unit an index, render YAxis accordingly, and set XAxis the same index 
+
     if(dataObjects.length === 0) return null
     return(
         <div>
             <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} minTime={0} maxTime={10000} paddingRight={100}>
                 <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={50} height="600">
-                    {dataObjects.map((metric, index)=>  <YAxis id={index+1} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>)}
+                    {dataObjects.map((metric, index)=> {
+                        const unit = metric._data._root.entries[1][1] 
+                        if(!YIndex[unit]){
+                            YIndex[unit] = index + 1 ;
+                            index += 1;
+                            return <YAxis id={YIndex[unit]} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
+                        }}
+                     )}
                      <Charts>
-                        {dataObjects.map((metric, index) =>{;
-                             return <LineChart style = {styler([{key:'value', color:chartColors[index+1]}])} axis= {index+1} series={metric} columns={["time", "value"]}/> })}
+                        {dataObjects.map((metric, index) =>{
+                              const unit = metric._data._root.entries[1][1] 
+                              return <LineChart style = {styler([{key:'value', color:chartColors[index+1]}])} axis= {YIndex[unit]} series={metric} columns={["time", "value"]}/>})}
                          <cycling/>    
                     </Charts>
                 </ChartRow>
