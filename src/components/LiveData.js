@@ -19,8 +19,8 @@ const LiveData =({liveData}) =>{
        })
     return(
         <div>
-            {Object.keys(liveMetrics).map(key=>
-                <Chip key  label = {`${key}: ${liveMetrics[key]}`} />
+            {Object.keys(liveMetrics).map((key, index)=>
+                <Chip key = {index} label = {`${key}: ${liveMetrics[key]}`} />
             )}
         </div>
        )

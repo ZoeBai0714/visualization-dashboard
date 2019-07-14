@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 import Weather from "./Weather";
 import LiveDataContainer from "./LiveDataContainer"
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
 const getChosenMetrics = state =>{
   return state.metrics.chosenMetrics;
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 export default () => {
   const classes = useStyles();
   const chosenMetrics = useSelector(getChosenMetrics);
-  const name = "Zoe_Bai's";
+  //const name = "Zoe_Bai's";
   return (
     <AppBar position="static">
       <Toolbar>

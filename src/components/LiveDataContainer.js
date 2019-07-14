@@ -1,7 +1,6 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { gql } from "apollo-boost";
-import { useDispatch, useSelector } from "react-redux";
 import {ApolloClient} from "apollo-boost";
 import { split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
@@ -11,7 +10,6 @@ import {Subscription} from 'react-apollo';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
-import * as actions from "../store/actions";
 import LiveData from "./LiveData";
 const httpLink = new HttpLink({
     uri: 'https://react.eogresources.com/graphql'

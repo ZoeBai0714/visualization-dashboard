@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/actions";
 import Multiselect from 'multiselect-dropdown-react';

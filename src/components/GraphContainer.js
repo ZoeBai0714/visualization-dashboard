@@ -1,4 +1,4 @@
-import React, { useEffect }from "react";
+import React from "react";
 import { useQuery, createClient, Provider } from "urql";
 import { useSelector } from 'react-redux';
 import Graphs from './Graphs';

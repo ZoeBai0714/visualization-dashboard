@@ -1,7 +1,7 @@
-import React, { useEffect }from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Charts, ChartContainer, ChartRow, YAxis, LineChart } from "react-timeseries-charts";
-import { TimeSeries, TimeRange } from "pondjs";
+import { TimeSeries} from "pondjs";
 import { styler } from "react-timeseries-charts";
 import * as actions from "../store/actions";
 
@@ -38,7 +38,7 @@ const Graphs = ({data}) =>{
            for(let key in keyValues){
                const obj = {}
                obj["label"] = key
-               obj["value"] = keyValues[`${key}`]
+               obj["value"] = keyValues[`${key}`].toString()//fixed the warning invalid prop type
              values.push(obj)
            }
           
@@ -69,21 +69,20 @@ const Graphs = ({data}) =>{
     if(dataObjects.length === 0) return null
     return(
         <div>
-            <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} minTime={0} maxTime={10000} paddingRight={100}>
+            <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} /*minTime={0} maxTime={10000}*/ paddingRight={100}>
                 <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={0} trackerInfoWidth = {0} height="550">
                     {dataObjects.map((metric, index)=> {
                         const unit = metric._data._root.entries[1][1] 
                         if(!YIndex[unit]){
                             YIndex[unit] = index + 1 ;
                             index += 1;
-                            return <YAxis id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
+                            return <YAxis key = {index} id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
                         }}
                      )}
                      <Charts>
                         {dataObjects.map((metric, index) =>{
                               const unit = metric._data._root.entries[1][1] 
                               return <LineChart key = {index} style = {styler([{key:'value', color:chartColors[index+1]}])} axis= {`${YIndex[unit]}`} series={metric} columns={["time", "value"]}/>})}
-                         <cycling/>    
                     </Charts>
                 </ChartRow>
             </ChartContainer>

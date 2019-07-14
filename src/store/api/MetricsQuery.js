@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Provider, createClient, useQuery } from "urql";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import * as actions from "../actions";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
@@ -39,7 +39,7 @@ const Metrics = () =>{
        dispatch({type: actions.METRICS_DATA_RECEIVED, getMetrics});
       },
 
-      [ data ]
+      //[ data ]
   );
   if(fetching) return <LinearProgress/>
   return(<div>
