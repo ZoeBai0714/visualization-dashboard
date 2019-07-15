@@ -65,22 +65,28 @@ const Graphs = ({data}) =>{
     
     const chartColors = {1:'orange', 2:'#e320bf', 3:"blue", 4:"green", 5:"purple", 6:"black"}
     const YIndex = {} // Same unit shares the same YAxis, assign each unit an index, render YAxis accordingly, and set XAxis the same index 
+    
+    //create a list of YAxis
+    const YAxisList = []
+    dataObjects.map((metric, index)=>{
+        const unit = metric._data._root.entries[1][1] 
+        if(!YIndex[unit]){
+            YIndex[unit] = index + 1 ;
+            index += 1;
+            YAxisList.push(<YAxis key = {index} id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>)
+        }
+        return true
+
+    })
+
 
     if(dataObjects.length === 0) return null
+
     return(
         <div>
             <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} /*minTime={0} maxTime={10000}*/ paddingRight={100}>
                 <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={0} trackerInfoWidth = {0} height={"550"}>
-                    {dataObjects.map((metric, index)=> {
-                        const unit = metric._data._root.entries[1][1] 
-                            if(!YIndex[unit]){
-                                YIndex[unit] = index + 1 ;
-                                index += 1;
-                                return <YAxis key = {index} id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
-                            }
-                            return true
-                        }
-                     )}
+                     {YAxisList}
                      <Charts>
                         {dataObjects.map((metric, index) =>{
                               const unit = metric._data._root.entries[1][1] 

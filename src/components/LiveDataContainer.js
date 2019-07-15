@@ -33,10 +33,10 @@ const httpLink = new HttpLink({
      );
  },
  wsLink,
- httpLink , 
+ httpLink, 
  );//Now, queries and mutations will go over HTTP as normal, but subscriptions will be done over the websocket transport.
   
- // subscription doesn't support apollo boost
+ // subscription doesn't support apollo boost, have to manually setup the link and the tcache
  const client = new ApolloClient({
  link: ApolloLink.from([
      onError(({ graphQLErrors, networkError }) => {
@@ -68,7 +68,6 @@ const httpLink = new HttpLink({
 
 
  
- //we are not storing live data into redux
  const NewMeasurement = () => (
    <Subscription subscription={NEW_MEASUREMENT}>
      {({ data, loading }) => {
