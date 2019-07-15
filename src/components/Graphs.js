@@ -5,7 +5,6 @@ import { TimeSeries} from "pondjs";
 import { styler } from "react-timeseries-charts";
 import * as actions from "../store/actions";
 
-
 //access to the tracker position in state
 const getTrackerPosition = state =>{
     return state.tracker.time
