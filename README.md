@@ -1,2 +1,2 @@
-## Create React App Visualization
+## Visualization Dashboard
 
