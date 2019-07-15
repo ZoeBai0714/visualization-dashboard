@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Chip from "./Chip";
 import { useSelector } from "react-redux";
 
@@ -7,18 +7,19 @@ const getChosenMetrics = state =>{
 } 
 
 const liveMetrics = {}
-// const units = {"PSI": "PSI", "F":"F", "%":"%"}
 
 const LiveData =({liveData}) =>{
     const chosenMetrics = useSelector(getChosenMetrics);
 
-    chosenMetrics.map(metric=>{if(metric === liveData.newMeasurement.metric){
-        if(!liveMetrics[metric]){
+    chosenMetrics.map(metric=>{
+       if(metric === liveData.newMeasurement.metric){
+            if(!liveMetrics[metric]){
             liveMetrics[metric] = liveData.newMeasurement.value
-        }else{
+            }else{
             liveMetrics[metric] = liveData.newMeasurement.value
+            }
         }
-    }
+        return true
     })
 
     //click off liveData

@@ -32,7 +32,7 @@ const theme = createMuiTheme({
   }
 });
 
-const App = props => (
+const App = () => (
   <MuiThemeProvider theme={theme}>
     {/* <CssBaseline /> */}
     <Provider store={store}>

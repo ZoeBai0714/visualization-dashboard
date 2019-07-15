@@ -34,6 +34,7 @@ const Graphs = ({data}) =>{
                }else{
                 keyValues[metric] = test[index]
                }
+               return true
            })
            for(let key in keyValues){
                const obj = {}
@@ -70,14 +71,16 @@ const Graphs = ({data}) =>{
     return(
         <div>
             <ChartContainer trackerPosition = {tracker} onTrackerChanged = {handleTrackerChanged} timeRange={dataObjects[0].timerange()} width={1500} /*minTime={0} maxTime={10000}*/ paddingRight={100}>
-                <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={0} trackerInfoWidth = {0} height="550">
+                <ChartRow trackerInfoValues={trackerInfoValues} trackerInfoHeight={0} trackerInfoWidth = {0} height={"550"}>
                     {dataObjects.map((metric, index)=> {
                         const unit = metric._data._root.entries[1][1] 
-                        if(!YIndex[unit]){
-                            YIndex[unit] = index + 1 ;
-                            index += 1;
-                            return <YAxis key = {index} id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
-                        }}
+                            if(!YIndex[unit]){
+                                YIndex[unit] = index + 1 ;
+                                index += 1;
+                                return <YAxis key = {index} id={`${YIndex[unit]}`} label= {"Unit: "+metric._data._root.entries[1][1]} min={0} max={2000} width="100" type="linear" format=""/>
+                            }
+                            return true
+                        }
                      )}
                      <Charts>
                         {dataObjects.map((metric, index) =>{

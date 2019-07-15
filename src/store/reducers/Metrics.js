@@ -21,9 +21,12 @@ export default (state = initialState, action) => {
        return metricsDataReceived(initialState, action)
 
     case `${actions.METRICS_FILTER_RECEIVED}`:
-        return chosenMetrics(initialState, action)     
+        return chosenMetrics(initialState, action) 
+    default:
+        return state
+
   }
-  return state
+  // return state
  
 };
     

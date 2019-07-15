@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { gql } from "apollo-boost";
 import {ApolloClient} from "apollo-boost";

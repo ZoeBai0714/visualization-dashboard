@@ -12,6 +12,8 @@ export default (state = initialState, action) =>{
     switch(action.type){
     case `${actions.TRACKER_VALUES_RECEIVED}`:
         return trackerValuesReceived(initialState, action)
-    }
+    default:    
     return state
+    }
+    // return state
 }
