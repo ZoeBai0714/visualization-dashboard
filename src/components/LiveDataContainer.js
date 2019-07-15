@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { gql } from "apollo-boost";
 import {ApolloClient} from "apollo-boost";
@@ -11,6 +11,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import LiveData from "./LiveData";
+
 const httpLink = new HttpLink({
     uri: 'https://react.eogresources.com/graphql'
  });
@@ -64,10 +65,11 @@ const httpLink = new HttpLink({
      }
  }
  `
+
+
  
  //we are not storing live data into redux
  const NewMeasurement = () => (
-     // const dispatch = useDispatch()
    <Subscription subscription={NEW_MEASUREMENT}>
      {({ data, loading }) => {
         let liveData = {data}
@@ -82,9 +84,10 @@ const httpLink = new HttpLink({
 
 
  const LiveDataContainer = ()=>{
+
     return(
         <ApolloProvider client = {client}>
-            <NewMeasurement/>
+            <NewMeasurement />
         </ApolloProvider>
     )
 }

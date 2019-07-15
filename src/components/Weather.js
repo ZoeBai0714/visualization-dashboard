@@ -28,6 +28,7 @@ const getWeather = state => {
     locationName
   };
 };
+
 export default () => {
   //passing the data url into provider
   return (
@@ -48,7 +49,7 @@ const Weather = () => {
   const { temperatureinFahrenheit, description, locationName } = useSelector(
     getWeather
   );
-
+   
   const [result] = useQuery({
     query,
     variables: {
@@ -70,10 +71,10 @@ const Weather = () => {
   );
  
   if (fetching) return <LinearProgress />;
-
+  const temp = parseFloat(temperatureinFahrenheit).toFixed(2) // only keep 2 decimals
   return (
     <Chip
-      label={`Weather in ${locationName}: ${description} and ${temperatureinFahrenheit}°`}
+      label={`Weather in ${locationName}: ${description} and ${temp}°`}
     />
   );
 }; 
